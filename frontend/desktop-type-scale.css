@@ -1,0 +1,105 @@
+@media(min-width:761px){
+	body[data-page]{font-size:16px}
+	body[data-page] .nav-link{font-size:16px}
+	body[data-page] .brand strong{font-size:18px}
+	body[data-page] .brand small{font-size:14px}
+	body[data-page] .sidebar-promo strong{font-size:20px}
+	body[data-page] .sidebar-promo p{font-size:16px}
+	body[data-page] .global-search input,body[data-page] .list-search input{font-size:16px}
+	body[data-page] .global-search kbd{font-size:14px}
+	body[data-page] .profile-name{font-size:16px}
+	body[data-page] .profile-name small{font-size:14px}
+	body[data-page] .page-heading h1{font-size:36px}
+	body[data-page] .page-heading p{font-size:16px}
+	body[data-page] .steps li{font-size:14px}
+	body[data-page] .section-heading h2{font-size:18px}
+	body[data-page] .section-heading p{font-size:16px}
+	body[data-page] .quiet-button{font-size:16px}
+	body[data-page] .mode-tab{font-size:16px}
+	body[data-page] .field-foot,body[data-page] .supported,body[data-page] .form-field,body[data-page] .form-field small{font-size:16px}
+	body[data-page] .form-field input,body[data-page] .form-field select,body[data-page] .transcript-surface textarea{font-size:16px}
+	body[data-page] .workflow-step strong{font-size:16px}
+	body[data-page] .workflow-step small{font-size:14px}
+	body[data-page] .result-tab{font-size:16px}
+	body[data-page] .result-card-head>strong{font-size:16px}
+	body[data-page] .result-content,body[data-page] .empty-result{font-size:16px}
+	body[data-page] .topic-list li{font-size:14px}
+	body[data-page] .stats-row .stat-card small{font-size:16px}
+	body[data-page] .filter-tab{font-size:14px}
+	body[data-page] .row-copy strong{font-size:16px}
+	body[data-page] .row-copy small{font-size:14px}
+	body[data-page] .row-metrics{font-size:14px}
+	body[data-page] .detail-top h2{font-size:18px}
+	body[data-page] .detail-date,body[data-page] .detail-label{font-size:14px}
+	body[data-page] .people-chips span{font-size:14px}
+	body[data-page] .detail-tab{font-size:14px}
+	body[data-page] .detail-body{font-size:16px}
+	body[data-page] .detail-actions .quiet-action{font-size:14px}
+	body[data-page] .empty-detail p{font-size:16px}
+	body[data-page] .text-link{font-size:14px}
+	body:not([data-page]) .brand-name{font-size:18px}
+	body:not([data-page]) .brand-sub{font-size:10px}
+	body:not([data-page]) .nav-link{font-size:14px}
+	body:not([data-page]) .search input{font-size:13px}
+	body:not([data-page]) .shortcut{font-size:11px}
+	body:not([data-page]) .profile strong{font-size:12px}
+	body:not([data-page]) .profile small{font-size:11px}
+	body:not([data-page]) h1{font-size:32px}
+	body:not([data-page]) .hero-copy p{font-size:14px}
+	body:not([data-page]) .eyebrow{font-size:11px}
+	body:not([data-page]) .panel-title{font-size:16px}
+	body:not([data-page]) .text-link,body:not([data-page]) .small-button{font-size:12px}
+	body:not([data-page]) .detail-row label{font-size:12px}
+	body:not([data-page]) .detail-row strong{font-size:14px}
+	body:not([data-page]) .transcript-area{font-size:14px}
+	body:not([data-page]) .transcript-foot{font-size:11px}
+	body:not([data-page]) .tab{font-size:12px}
+	body:not([data-page]) .summary-card p{font-size:14px}
+	body:not([data-page]) .metric strong{font-size:12px}
+	body:not([data-page]) .metric small{font-size:10px}
+	body:not([data-page]) .lower-grid .panel-title,body:not([data-page]) .bottom-grid .panel-title{font-size:18px}
+	body:not([data-page]) .recent .meeting-name{font-size:16px}
+	body:not([data-page]) .recent .meeting-time{font-size:14px}
+	body:not([data-page]) .task-table th{font-size:14px}
+	body:not([data-page]) .task-table td{font-size:14px}
+	body:not([data-page]) .owner{font-size:14px}
+	body:not([data-page]) .status{font-size:13px}
+	body:not([data-page]) .participants .person-info strong{font-size:16px}
+	body:not([data-page]) .participants .person-info small{font-size:13px}
+	body:not([data-page]) .participants .role{font-size:12px}
+	body:not([data-page]) .legend-row{font-size:14px}
+	body:not([data-page]) .list-row,body:not([data-page]) .next-row{font-size:14px}
+	body:not([data-page]) .integration{font-size:14px}
+	body:not([data-page]) .decision p{font-size:16px}
+	body:not([data-page]) .decision-num{font-size:16px}
+	body:not([data-page]) .add-task{font-size:13px}
+	body:not([data-page]) .lower-grid .panel-head,body:not([data-page]) .bottom-grid .panel-head{height:auto;min-height:40px}
+	body:not([data-page]) .integration.double{grid-template-columns:1fr}
+	body:not([data-page]) .integration.double span{white-space:normal}
+}
+@media(min-width:761px) and (max-width:1200px){
+	body[data-page="meetings"] .list-toolbar{grid-template-columns:1fr}
+	body[data-page="meetings"] .filter-tabs{overflow-x:auto}
+	body[data-page="meetings"] .filter-tab{white-space:nowrap}
+}
+@media(min-width:761px){
+	body:not([data-page]) .dashboard{gap:12px}
+	body:not([data-page]) .lower-grid,body:not([data-page]) .bottom-grid{gap:12px}
+	body:not([data-page]) .panel-head{height:auto;min-height:40px;padding:7px 12px}
+	body:not([data-page]) .meeting-list{gap:5px;padding:6px 12px 10px}
+	body:not([data-page]) .meeting-item{min-height:42px;gap:10px;padding:6px 8px}
+	body:not([data-page]) .task-table{width:calc(100% - 20px);margin:0 10px 10px}
+	body:not([data-page]) .task-table th{height:28px}
+	body:not([data-page]) .task-table td{height:28px}
+	body:not([data-page]) .person-list{gap:8px;padding:8px 12px 12px}
+	body:not([data-page]) .person{gap:10px}
+	body:not([data-page]) .decision-list{gap:8px;padding:7px 12px 10px}
+	body:not([data-page]) .decision{min-height:36px;gap:10px;padding:6px 8px}
+	body:not([data-page]) .decision p{line-height:1.4}
+	body:not([data-page]) .progress-content{gap:16px;padding:8px 14px 10px}
+	body:not([data-page]) .legend{gap:7px}
+	body:not([data-page]) .list-rows{gap:6px;padding:6px 12px 10px}
+	body:not([data-page]) .list-row,body:not([data-page]) .next-row{min-height:28px;gap:8px}
+	body:not([data-page]) .integration-list{gap:6px;padding:6px 12px 12px}
+	body:not([data-page]) .integration{min-height:28px;padding:4px 8px}
+}

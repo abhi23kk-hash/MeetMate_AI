@@ -1,0 +1,322 @@
+[
+  {
+    "id": "demo-001",
+    "title": "College Placement Platform Discussion",
+    "date": "2026-10-15T10:00:00",
+    "endDate": "2026-10-15T11:00:00",
+    "mode": "Online",
+    "participants": [
+      "Abhishek K",
+      "Rahul",
+      "Sneha",
+      "Tanvi",
+      "Priya"
+    ],
+    "summary": "The team discussed the development progress of the college placement platform. Key topics included dataset collection, model training, frontend development and deployment timeline. The team agreed to finalize the dataset by 20th October and conduct internal testing before release.",
+    "actionItems": [
+      "Finalize the placement dataset by 20 October.",
+      "Prepare the frontend prototype by 18 October.",
+      "Integrate authentication and share the test plan.",
+      "Conduct internal testing before release.",
+      "Review release readiness with the team.",
+      "Share an updated progress report."
+    ],
+    "decisions": [
+      "Use Next.js for frontend development.",
+      "Finalize dataset collection by 20 Oct 2026.",
+      "Conduct internal testing before release."
+    ],
+    "clarifications": [
+      "Which dataset version should be used for final training?",
+      "Will the demo be online or offline?"
+    ],
+    "pendingTasks": 3,
+    "transcript": "Abhishek: We should finalize the placement dataset by October 20. Rahul will prepare the frontend prototype by October 18. Sneha will integrate authentication and share the test plan. The team agreed to run internal testing before release.",
+    "notes": "",
+    "createdAt": "2026-10-15T11:00:00.000Z"
+  },
+  {
+    "id": "demo-002",
+    "title": "Project Kickoff Discussion",
+    "date": "2026-10-12T14:00:00",
+    "endDate": "2026-10-12T15:00:00",
+    "mode": "Online",
+    "participants": [
+      "Abhishek K",
+      "Rahul",
+      "Sneha",
+      "Karan"
+    ],
+    "summary": "The team aligned on project requirements, timeline and ownership for the first delivery milestone.",
+    "actionItems": [
+      "Document project requirements.",
+      "Create the initial sprint board.",
+      "Confirm the delivery timeline.",
+      "Share meeting notes with the team."
+    ],
+    "decisions": [
+      "Use a two-week sprint cadence.",
+      "Review progress every Monday."
+    ],
+    "clarifications": [
+      "Who owns the deployment environment?"
+    ],
+    "pendingTasks": 3,
+    "transcript": "",
+    "notes": "",
+    "createdAt": "2026-10-12T15:00:00.000Z"
+  },
+  {
+    "id": "demo-003",
+    "title": "ML Model Review",
+    "date": "2026-10-10T16:00:00",
+    "endDate": "2026-10-10T16:30:00",
+    "mode": "Online",
+    "participants": [
+      "Rahul",
+      "Sneha"
+    ],
+    "summary": "Reviewed model performance, validation results and the next round of improvements.",
+    "actionItems": [
+      "Compare validation metrics.",
+      "Prepare a revised feature set.",
+      "Schedule the next model review."
+    ],
+    "decisions": [
+      "Keep the current baseline for comparison."
+    ],
+    "clarifications": [
+      "Should the next run include the full dataset?"
+    ],
+    "pendingTasks": 2,
+    "transcript": "",
+    "notes": "",
+    "createdAt": "2026-10-10T16:30:00.000Z"
+  },
+  {
+    "id": "demo-004",
+    "title": "Team Sync",
+    "date": "2026-10-08T11:00:00",
+    "endDate": "2026-10-08T11:25:00",
+    "mode": "Hybrid",
+    "participants": [
+      "Abhishek K",
+      "Rahul",
+      "Tanvi"
+    ],
+    "summary": "Weekly progress updates and next steps across the placement platform workstreams.",
+    "actionItems": [
+      "Update the sprint board.",
+      "Share the API integration status."
+    ],
+    "decisions": [
+      "Keep the current release milestone.",
+      "Escalate access blockers today."
+    ],
+    "clarifications": [],
+    "pendingTasks": 1,
+    "transcript": "",
+    "notes": "",
+    "createdAt": "2026-10-08T11:25:00.000Z"
+  },
+  {
+    "id": "demo-005",
+    "title": "Product Demo Discussion",
+    "date": "2026-10-05T15:00:00",
+    "endDate": "2026-10-05T16:00:00",
+    "mode": "Online",
+    "participants": [
+      "Abhishek K",
+      "Sneha",
+      "Pranav",
+      "Pooja"
+    ],
+    "summary": "Prepared the product walkthrough and collected feedback for the next iteration.",
+    "actionItems": [
+      "Refine the demo flow.",
+      "Add the latest dashboard changes.",
+      "Share the demo recording."
+    ],
+    "decisions": [
+      "Lead with the student placement workflow.",
+      "Use the current test data for the demo."
+    ],
+    "clarifications": [
+      "Should the faculty view be included?",
+      "Who will present the analytics section?"
+    ],
+    "pendingTasks": 2,
+    "transcript": "",
+    "notes": "",
+    "createdAt": "2026-10-05T16:00:00.000Z"
+  },
+  {
+    "id": "demo-006",
+    "title": "UI/UX Design Review",
+    "date": "2026-10-02T13:00:00",
+    "endDate": "2026-10-02T14:00:00",
+    "mode": "In person",
+    "participants": [
+      "Rahul",
+      "Sneha"
+    ],
+    "summary": "Reviewed the navigation, responsive layouts and key student flows.",
+    "actionItems": [
+      "Adjust the dashboard spacing.",
+      "Review the mobile filter controls.",
+      "Share final component states."
+    ],
+    "decisions": [
+      "Keep the current navigation structure."
+    ],
+    "clarifications": [
+      "Should empty states include examples?"
+    ],
+    "pendingTasks": 2,
+    "transcript": "",
+    "notes": "",
+    "createdAt": "2026-10-02T14:00:00.000Z"
+  },
+  {
+    "id": "demo-007",
+    "title": "Internal Testing Discussion",
+    "date": "2026-09-28T10:30:00",
+    "endDate": "2026-09-28T11:30:00",
+    "mode": "Online",
+    "participants": [
+      "Abhishek K",
+      "Dev",
+      "Sara"
+    ],
+    "summary": "Planned test coverage, bug triage and the readiness review before release.",
+    "actionItems": [
+      "Run the regression checklist.",
+      "Prepare the release readiness report."
+    ],
+    "decisions": [
+      "Triage critical bugs before feature polish.",
+      "Run a final smoke test before release."
+    ],
+    "clarifications": [
+      "Who signs off the deployment?"
+    ],
+    "pendingTasks": 1,
+    "transcript": "",
+    "notes": "",
+    "createdAt": "2026-09-28T11:30:00.000Z"
+  },
+  {
+    "id": "demo-008",
+    "title": "Sprint Planning",
+    "date": "2026-09-24T09:30:00",
+    "endDate": "2026-09-24T10:15:00",
+    "mode": "Online",
+    "participants": [
+      "Maya",
+      "Neha"
+    ],
+    "summary": "Selected sprint priorities and reviewed capacity for the coming week.",
+    "actionItems": [
+      "Publish the sprint plan."
+    ],
+    "decisions": [
+      "Prioritize the student profile flow."
+    ],
+    "clarifications": [
+      "Is the data import ready for testing?"
+    ],
+    "pendingTasks": 1,
+    "transcript": "",
+    "notes": "",
+    "createdAt": "2026-09-24T10:15:00.000Z"
+  },
+  {
+    "id": "demo-009",
+    "title": "Faculty Review Meeting",
+    "date": "2026-09-21T12:00:00",
+    "endDate": "2026-09-21T12:45:00",
+    "mode": "Hybrid",
+    "participants": [
+      "Ishan",
+      "Omar",
+      "Leena"
+    ],
+    "summary": "Collected faculty feedback on the platform scope and pilot requirements.",
+    "actionItems": [
+      "Update the pilot checklist."
+    ],
+    "decisions": [
+      "Run the pilot with one department first."
+    ],
+    "clarifications": [],
+    "pendingTasks": 2,
+    "transcript": "",
+    "notes": "",
+    "createdAt": "2026-09-21T12:45:00.000Z"
+  },
+  {
+    "id": "demo-010",
+    "title": "Placement Data Check-in",
+    "date": "2026-09-17T14:00:00",
+    "endDate": "2026-09-17T14:30:00",
+    "mode": "Online",
+    "participants": [
+      "Karan",
+      "Pooja"
+    ],
+    "summary": "Checked data quality and confirmed remaining records for the placement dataset.",
+    "actionItems": [
+      "Verify the remaining employer records."
+    ],
+    "decisions": [
+      "Use the verified dataset for the next test run."
+    ],
+    "clarifications": [],
+    "pendingTasks": 1,
+    "transcript": "",
+    "notes": "",
+    "createdAt": "2026-09-17T14:30:00.000Z"
+  },
+  {
+    "id": "demo-011",
+    "title": "Recruiter Portal Review",
+    "date": "2026-09-14T11:00:00",
+    "endDate": "2026-09-14T11:30:00",
+    "mode": "Online",
+    "participants": [
+      "Dev",
+      "Sara"
+    ],
+    "summary": "Reviewed recruiter portal feedback and captured one follow-up item.",
+    "actionItems": [
+      "Share the recruiter feedback summary."
+    ],
+    "decisions": [],
+    "clarifications": [],
+    "pendingTasks": 0,
+    "transcript": "",
+    "notes": "",
+    "createdAt": "2026-09-14T11:30:00.000Z"
+  },
+  {
+    "id": "demo-012",
+    "title": "Platform Milestone Review",
+    "date": "2026-09-10T15:30:00",
+    "endDate": "2026-09-10T16:00:00",
+    "mode": "In person",
+    "participants": [
+      "Ishan",
+      "Leena"
+    ],
+    "summary": "Reviewed completed platform milestones and agreed on the next review date.",
+    "actionItems": [
+      "Schedule the next milestone review."
+    ],
+    "decisions": [],
+    "clarifications": [],
+    "pendingTasks": 0,
+    "transcript": "",
+    "notes": "",
+    "createdAt": "2026-09-10T16:00:00.000Z"
+  }
+]

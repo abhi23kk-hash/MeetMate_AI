@@ -1,0 +1,15 @@
+{
+  "name": "meetmate-ai",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.57.4",
+    "express": "^5.1.0",
+    "multer": "^2.0.2",
+    "openai": "^5.12.2"
+  }
+}

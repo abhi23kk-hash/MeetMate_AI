@@ -1,0 +1,35 @@
+:root{--sidebar-width:166px}
+.app,.app-shell{grid-template-columns:var(--sidebar-width) minmax(0,1fr)}
+.sidebar{position:sticky;top:0;height:100vh;min-height:640px;padding:12px 9px;border-right:1px solid #171d34;background:#0b0e1d;display:flex;flex-direction:column}
+.brand{height:43px;display:flex;align-items:center;gap:6px;padding:0 5px 10px;border-bottom:1px solid #171d34;text-decoration:none;color:inherit;white-space:nowrap}
+.brand-mark{width:32px;height:32px;flex:0 0 32px;display:flex;align-items:center;justify-content:center;gap:2px;border-radius:50%;background:radial-gradient(circle,#34106f 15%,#1b0c42 66%,#100b2b);box-shadow:0 0 13px #8534ff99}
+.brand-mark i{width:2px;border-radius:3px;background:linear-gradient(#f4ddff,#a94dff);box-shadow:0 0 5px #c26cff}
+.brand-mark i:nth-child(1){height:8px}.brand-mark i:nth-child(2){height:15px}.brand-mark i:nth-child(3){height:24px}.brand-mark i:nth-child(4){height:30px}.brand-mark i:nth-child(5){height:20px}.brand-mark i:nth-child(6){height:13px}.brand-mark i:nth-child(7){height:7px}
+.brand-name,.brand strong{display:block;font:800 16px Manrope,sans-serif;white-space:nowrap}
+.brand-name span,.brand b{color:#b65cff}
+.brand-sub,.brand small{display:block;margin-top:-2px;color:#a5acc4;font-size:8px;font-weight:400}
+.nav{display:grid;gap:5px;padding-top:14px}
+.nav-link{min-height:32px;padding:0 10px;display:flex;align-items:center;gap:10px;border:1px solid transparent;border-radius:7px;background:transparent;color:#c5c9dc;text-align:left;text-decoration:none;font-size:11px}
+.nav-link span:first-child,.nav-icon{width:16px;flex:0 0 16px;color:#d6d9ee;font-size:15px;text-align:center}
+.nav-link:hover{background:#151a30}
+.nav-link.active{background:linear-gradient(100deg,#7b32ec,#6639de);box-shadow:0 5px 18px #6c2edb52;color:#fff}
+.sidebar-promo{position:relative;flex:0 0 324px;min-height:324px;margin-top:auto;padding:14px 12px;overflow:hidden;border:1px solid #1c2240;border-radius:9px;background:radial-gradient(ellipse at 60% 45%,#25145a 0,#101329 47%,#0d1020 78%)}
+.sidebar-promo .promo-image{position:absolute;top:0;left:0;width:100%;height:160px;object-fit:contain;object-position:center bottom;filter:drop-shadow(0 0 14px #963cff66)}
+.sidebar-promo .promo-copy{position:absolute;bottom:30px;left:13px;right:10px}
+.sidebar-promo .promo-copy strong{display:block;font:800 17px/1.25 Manrope,sans-serif}
+.sidebar-promo .promo-copy p{max-width:125px;margin:8px 0 0;color:#9da5c1;font-size:10px;line-height:1.6}
+body[data-page] .nav-link,body[data-page] .brand strong{font-size:11px}
+body[data-page] .brand strong{font-size:16px}
+body[data-page] .brand small{font-size:8px}
+body[data-page] .sidebar-promo .promo-copy strong{font-size:17px}
+body[data-page] .sidebar-promo .promo-copy p{font-size:10px}
+@media(max-width:1100px){:root{--sidebar-width:154px}}
+@media(min-width:1450px){:root{--sidebar-width:188px}}
+@media(max-width:760px){
+	.app,.app-shell{display:block}
+	.sidebar{position:sticky;z-index:4;height:auto;min-height:0;padding:8px 10px 6px;border-right:0;border-bottom:1px solid #1e2440}
+	.brand{height:35px;padding:0 3px 6px;border:0}
+	.nav{display:flex;gap:5px;padding-top:5px;overflow-x:auto;scrollbar-width:none}
+	.nav-link{min-width:max-content;min-height:30px;padding:0 9px;gap:6px}
+	.sidebar-promo{display:none}
+}

@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="theme-color" content="#080a18">
+	<title>Meetings | MeetMate AI</title>
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="app.css">
+	<link rel="stylesheet" href="reference.css">
+	<link rel="stylesheet" href="layout-fix.css">
+	<link rel="stylesheet" href="type-scale.css">
+	<link rel="stylesheet" href="desktop-type-scale.css">
+	<link rel="stylesheet" href="meetings-page.css">
+	<link rel="stylesheet" href="sidebar.css">
+	<script src="app.js" defer></script>
+</head>
+<body data-page="meetings">
+	<div class="app-shell">
+		<aside class="sidebar">
+			<a class="brand" href="New_Meeting.html"><span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span><span><strong>MeetMate <b>AI</b></strong><small>From Meetings to Action</small></span></a>
+			<nav class="nav" aria-label="Main navigation">
+				<a class="nav-link" href="homepage.html"><span>⌂</span>Dashboard</a>
+				<a class="nav-link" href="New_Meeting.html"><span>＋</span>New Meeting</a>
+				<a class="nav-link active" href="Meetings.html"><span>▣</span>Meetings</a>
+			</nav>
+			<div class="sidebar-promo"><img class="promo-image" src="side-robot.webp" alt="MeetMate AI assistant robot"><div class="promo-copy"><strong>Turn Discussions<br>into Actions</strong><p>AI-powered meeting summaries, tasks and follow-ups.</p></div></div>
+		</aside>
+		<main class="main-area">
+			<header class="topbar"><label class="global-search"><span>⌕</span><input id="globalSearch" type="search" placeholder="Search meetings, tasks, decisions or participants..." aria-label="Search meetings"><kbd>Ctrl K</kbd></label><div class="top-actions"><button class="icon-button" type="button" aria-label="Toggle theme">☼</button><button class="theme-toggle" type="button" aria-label="Theme is dark"><span class="toggle-dot"></span></button><button class="icon-button notification-button" type="button" aria-label="Notifications">♧<i>3</i></button><span class="avatar">A</span><span class="profile-name">Abhishek K<small>Student</small></span><span class="profile-chevron">⌄</span></div></header>
+			<section class="page-heading meetings-heading"><div><h1>Meetings</h1><p>View, search and manage all your meetings. Click a meeting to view details, edit or export.</p></div><a class="primary-button new-link" href="New_Meeting.html">＋ &nbsp; New Meeting</a></section>
+			<section class="stats-row" aria-label="Meeting statistics"><article class="stat-card"><span class="stat-icon purple">▣</span><div><strong id="meetingTotal">0</strong><small>Total Meetings</small></div></article><article class="stat-card"><span class="stat-icon green">✓</span><div><strong id="actionTotal">0</strong><small>Total Action Items</small></div></article><article class="stat-card"><span class="stat-icon amber">⌛</span><div><strong id="pendingTaskTotal">0</strong><small>Pending Tasks</small></div></article><article class="stat-card"><span class="stat-icon blue">♣</span><div><strong id="participantTotal">0</strong><small>Total Participants</small></div></article></section>
+			<div class="meetings-layout">
+				<section class="surface meeting-list-surface"><div class="list-toolbar"><label class="list-search"><span>⌕</span><input id="meetingSearch" type="search" placeholder="Search meetings by title, participants or keywords..." aria-label="Filter meetings"></label><div class="filter-tabs" role="group" aria-label="Filter meeting dates"><button class="filter-tab active" data-filter="all" type="button">All Meetings</button><button class="filter-tab" data-filter="week" type="button">This Week</button><button class="filter-tab" data-filter="month" type="button">This Month</button><button class="filter-tab" data-filter="year" type="button">This Year</button></div></div><div class="meeting-list" id="meetingList" aria-live="polite"></div></section>
+				<aside class="surface meeting-detail" id="meetingDetail"><div class="empty-detail"><span class="detail-mark">▣</span><h2>Select a meeting</h2><p>Meeting summary, participants and follow-ups will appear here.</p></div></aside>
+			</div>
+		</main>
+	</div>
+	<div class="toast" id="toast" role="status" aria-live="polite"></div>
+</body>
+</html>

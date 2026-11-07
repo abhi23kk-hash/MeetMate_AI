@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="theme-color" content="#080a18">
+	<title>New Meeting | MeetMate AI</title>
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="app.css">
+	<link rel="stylesheet" href="reference.css">
+	<link rel="stylesheet" href="layout-fix.css">
+	<link rel="stylesheet" href="type-scale.css">
+	<link rel="stylesheet" href="desktop-type-scale.css">
+	<link rel="stylesheet" href="sidebar.css">
+	<script src="app.js" defer></script>
+</head>
+<body data-page="new">
+	<div class="app-shell">
+		<aside class="sidebar">
+			<a class="brand" href="New_Meeting.html"><span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span><span><strong>MeetMate <b>AI</b></strong><small>From Meetings to Action</small></span></a>
+			<nav class="nav" aria-label="Main navigation">
+				<a class="nav-link" href="homepage.html"><span>⌂</span>Dashboard</a>
+				<a class="nav-link active" href="New_Meeting.html"><span>＋</span>New Meeting</a>
+				<a class="nav-link" href="Meetings.html"><span>▣</span>Meetings</a>
+			</nav>
+			<div class="sidebar-promo"><img class="promo-image" src="side-robot.webp" alt="MeetMate AI assistant robot"><div class="promo-copy"><strong>Turn Discussions<br>into Actions</strong><p>AI-powered meeting summaries, tasks and follow-ups.</p></div></div>
+		</aside>
+		<main class="main-area">
+			<header class="topbar"><label class="global-search"><span>⌕</span><input id="globalSearch" type="search" placeholder="Search meetings, tasks, decisions or participants..." aria-label="Search meetings"><kbd>Ctrl K</kbd></label><div class="top-actions"><button class="icon-button" type="button" aria-label="Toggle theme">☼</button><button class="theme-toggle" type="button" aria-label="Theme is dark"><span class="toggle-dot"></span></button><button class="icon-button notification-button" type="button" aria-label="Notifications">♧<i>3</i></button><span class="avatar">A</span><span class="profile-name">Abhishek K<small>Student</small></span><span class="profile-chevron">⌄</span></div></header>
+			<section class="page-heading reference-heading"><div><h1>New Meeting</h1><p>Upload, transcribe and get AI-powered insights, decisions, tasks and next steps.</p></div><ol class="steps"><li class="current"><i>1</i><span>Upload / Transcribe</span></li><li><i>2</i><span>AI Analysis</span></li><li><i>3</i><span>Review &amp; Edit</span></li><li><button class="step-save" id="saveButton" type="button"><i>4</i><span>Save Meeting</span></button></li></ol></section>
+			<div class="new-grid reference-new-grid">
+				<section class="surface transcript-surface">
+					<div class="section-heading"><span class="section-icon">▤</span><div><h2>Meeting transcript</h2><p>Paste notes or upload a transcript or audio file.</p></div><button class="quiet-button" id="sampleButton" type="button">Load sample</button></div>
+					<div class="mode-tabs" role="tablist"><button class="mode-tab active" data-mode="paste" type="button">▤ &nbsp; Paste text</button><button class="mode-tab" data-mode="upload" type="button">⇧ &nbsp; Upload file</button><button class="mode-tab" data-mode="record" type="button">◉ &nbsp; Live recording</button></div>
+					<input id="transcriptFile" type="file" accept=".txt,.md,.csv,.mp3,.m4a,.wav,.webm,.mp4,.mpeg,.mpga,.oga" hidden>
+					<textarea id="transcriptInput" maxlength="50000" placeholder="Paste your meeting transcript here..." aria-label="Meeting transcript"></textarea>
+					<div class="field-foot"><span id="transcriptStatus">AI insights use your server-side provider key; audio transcription requires OpenAI.</span><span id="charCount">0 / 50,000</span></div>
+					<div class="supported">ⓘ &nbsp; Supported File Types<br><span>TXT, MD, CSV, MP3, M4A, WAV, WEBM, MP4, OGA (audio will be transcribed)</span></div>
+					<button class="primary-button wide-button" id="generateButton" type="button"><span>✦</span> Generate Meeting Insights</button>
+				</section>
+				<div class="side-column">
+					<section class="surface details-surface"><div class="section-heading"><span class="section-icon">▦</span><div><h2>Meeting information</h2><p>Add basic details for better insights.</p></div></div>
+						<div class="form-grid"><label class="form-field">Title <em>*</em><input id="meetingTitle" required placeholder="e.g., Project kickoff discussion"></label><label class="form-field">Date &amp; time<input id="meetingDate" type="datetime-local"></label><label class="form-field">Mode<select id="meetingMode"><option>Select mode</option><option>In person</option><option>Online</option><option>Hybrid</option></select></label><label class="form-field">Participants <small>(optional)</small><input id="meetingParticipants" placeholder="Add participant names"></label></div>
+					</section>
+					<section class="surface process-surface"><div class="section-heading"><span class="section-icon">⚙</span><div><h2>AI Processing</h2><p>Your transcript will be analyzed to generate structured insights.</p></div></div><div class="workflow"><div class="workflow-step"><span class="workflow-icon purple">▤</span><strong>Summarizing</strong><small>Key Points</small></div><div class="workflow-step"><span class="workflow-icon blue">☷</span><strong>Extracting</strong><small>Action Items</small></div><div class="workflow-step"><span class="workflow-icon green">♙</span><strong>Identifying</strong><small>Key Decisions</small></div><div class="workflow-step"><span class="workflow-icon amber">?</span><strong>Finding</strong><small>Clarifications</small></div></div></section>
+				</div>
+			</div>
+			<section class="surface results-surface"><div class="results-header"><div class="section-heading"><span class="section-icon">▤</span><div><h2>Generated Results</h2><p>Review and edit the AI-generated content before saving.</p></div></div><div class="results-tabs" role="tablist" aria-label="Generated result categories"><button class="result-tab active" data-results-tab="Summary" type="button">▤ &nbsp; Summary</button><button class="result-tab" data-results-tab="Action Items" type="button">☷ &nbsp; Action Items</button><button class="result-tab" data-results-tab="Decisions" type="button">♙ &nbsp; Decisions</button><button class="result-tab" data-results-tab="Clarifications" type="button">ⓘ &nbsp; Clarifications</button><button class="result-tab" data-results-tab="Transcript" type="button">▤ &nbsp; Transcript</button></div></div>
+				<div class="results-grid"><article class="result-card summary-result"><div class="result-card-head"><strong><span class="result-icon purple">▤</span>Meeting Summary</strong><button class="quiet-button" id="copySummary" type="button">▢ Copy</button></div><div class="result-content" id="resultContent"><p class="empty-result">Your meeting summary will appear here after analysis.</p></div></article><article class="result-card topics-result"><div class="result-card-head"><strong><span class="result-icon violet">✳</span>Key Topics</strong></div><ul class="topic-list" id="topicList"><li>Topics will appear after analysis.</li></ul></article><article class="result-card"><div class="result-card-head"><strong><span class="result-icon purple">✓</span>Action Items</strong><button class="text-link" type="button" data-results-tab="Action Items">View All</button></div><div class="result-content compact-result" id="actionResult"><p class="empty-result">Action items will appear after analysis.</p></div></article><article class="result-card"><div class="result-card-head"><strong><span class="result-icon green">♙</span>Key Decisions</strong><button class="text-link" type="button" data-results-tab="Decisions">View All</button></div><div class="result-content compact-result" id="decisionResult"><p class="empty-result">Decisions will appear after analysis.</p></div></article><article class="result-card"><div class="result-card-head"><strong><span class="result-icon amber">?</span>Clarifications</strong><button class="text-link" type="button" data-results-tab="Clarifications">View All</button></div><div class="result-content compact-result" id="clarificationResult"><p class="empty-result">Clarifications will appear after analysis.</p></div></article></div>
+				</section>
+		</main>
+	</div>
+	<div class="toast" id="toast" role="status" aria-live="polite"></div>
+</body>
+</html>

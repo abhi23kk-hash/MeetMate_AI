@@ -1,0 +1,683 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="theme-color" content="#080a18">
+	<title>MeetMate AI | From Meetings to Action</title>
+	<link rel="stylesheet" href="desktop-type-scale.css">
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+	<style>
+		:root {
+			color-scheme: dark;
+			--page: #080a18;
+			--panel: #101427;
+			--panel-raised: #151a31;
+			--panel-soft: #0d1122;
+			--line: #202743;
+			--muted: #8991ad;
+			--text: #f2f3ff;
+			--purple: #a145f5;
+			--violet: #6945f5;
+			--pink: #d947f3;
+			--green: #42cba4;
+			--amber: #f2b33c;
+			--blue: #2385ec;
+			--sidebar-width: 166px;
+			font-family: 'DM Sans', sans-serif;
+			background: var(--page);
+			color: var(--text);
+		}
+		* { box-sizing: border-box; }
+		body { margin: 0; min-width: 0; min-height: 100vh; background: var(--page); font-size: 12px; }
+		button, input, textarea { font: inherit; }
+		button { color: inherit; cursor: pointer; }
+		.app { min-height: 100vh; display: grid; grid-template-columns: var(--sidebar-width) minmax(0, 1fr); }
+		.sidebar { position: sticky; top: 0; height: 100vh; min-height: 640px; display: flex; flex-direction: column; padding: 12px 9px; border-right: 1px solid #171d34; background: #0b0e1d; }
+		.brand { height: 43px; display: flex; align-items: center; gap: 6px; padding: 0 5px 10px; border-bottom: 1px solid #171d34; }
+		.brand-mark { width: 32px; height: 32px; flex: 0 0 32px; display: flex; align-items: center; justify-content: center; gap: 2px; border-radius: 50%; background: radial-gradient(circle, #34106f 15%, #1b0c42 66%, #100b2b); box-shadow: 0 0 13px #8534ff99; }
+		.brand-mark i { width: 2px; border-radius: 3px; background: linear-gradient(#f4ddff, #a94dff); box-shadow: 0 0 5px #c26cff; }
+		.brand-mark i:nth-child(1) { height: 8px; }
+		.brand-mark i:nth-child(2) { height: 15px; }
+		.brand-mark i:nth-child(3) { height: 24px; }
+		.brand-mark i:nth-child(4) { height: 30px; }
+		.brand-mark i:nth-child(5) { height: 20px; }
+		.brand-mark i:nth-child(6) { height: 13px; }
+		.brand-mark i:nth-child(7) { height: 7px; }
+		.brand-name { font: 800 16px 'Manrope', sans-serif; white-space: nowrap; letter-spacing: 0; }
+		.brand-name span { color: #b65cff; }
+		.brand-sub { display: block; color: #a5acc4; font-size: 8px; font-weight: 400; margin-top: -2px; white-space: nowrap; }
+		.nav { display: grid; gap: 5px; padding-top: 14px; }
+		.nav-link { min-height: 32px; padding: 0 10px; display: flex; align-items: center; gap: 10px; border: 1px solid transparent; border-radius: 7px; background: transparent; color: #c5c9dc; text-align: left; text-decoration: none; font-size: 11px; }
+		.nav-link:hover { background: #151a30; }
+		.nav-link.active { color: white; background: linear-gradient(100deg, #7b32ec, #6639de); box-shadow: 0 5px 18px #6c2edb52; }
+		.nav-icon { width: 16px; color: #d6d9ee; font-size: 15px; text-align: center; }
+		.sidebar-promo { position: relative; flex: 0 0 324px; min-height: 324px; margin-top: auto; padding: 14px 12px; overflow: hidden; border: 1px solid #1c2240; border-radius: 9px; background: radial-gradient(ellipse at 60% 45%, #25145a 0, #101329 47%, #0d1020 78%); }
+		.promo-image { position: absolute; top: 0; left: 0; width: 100%; height: 160px; object-fit: contain; object-position: center bottom; filter: drop-shadow(0 0 14px #963cff66); }
+		.promo-copy { position: absolute; bottom: 30px; left: 13px; right: 10px; }
+		.promo-copy strong { display: block; font: 800 17px/1.25 'Manrope', sans-serif; }
+		.promo-copy p { margin: 8px 0 0; max-width: 125px; color: #9da5c1; font-size: 10px; line-height: 1.6; }
+		.main { min-width: 0; padding: 0 10px 12px; }
+		.topbar { height: 51px; display: flex; align-items: center; gap: 12px; }
+		.search { width: min(470px, 54vw); height: 30px; display: flex; align-items: center; gap: 8px; padding: 0 10px; border: 1px solid #252b47; border-radius: 6px; background: #12172a; color: #a5abc1; }
+		.search input { width: 100%; border: 0; outline: 0; background: transparent; color: var(--text); font-size: 10px; }
+		.search input::placeholder { color: #8991ad; }
+		.shortcut { padding: 3px 5px; border: 1px solid #303653; border-radius: 4px; color: #b9bfd6; font-size: 9px; white-space: nowrap; }
+		.top-actions { display: flex; align-items: center; gap: 10px; margin-left: auto; }
+		.icon-button { width: 29px; height: 29px; display: inline-grid; place-items: center; border: 1px solid transparent; border-radius: 7px; background: transparent; color: #c7cce0; font-size: 15px; }
+		.icon-button:hover { background: #1b2039; }
+		.theme-toggle { width: 58px; height: 25px; display: flex; align-items: center; justify-content: space-between; padding: 3px 5px; border: 1px solid #282d47; border-radius: 18px; background: #11162a; color: #c8cee2; }
+		.toggle-dot { width: 18px; height: 18px; border-radius: 50%; background: linear-gradient(145deg, #ad51ff, #6135d5); box-shadow: 0 0 10px #9949ff; }
+		.profile { display: flex; align-items: center; gap: 7px; min-width: 84px; }
+		.avatar { width: 27px; height: 27px; display: inline-grid; flex: 0 0 auto; place-items: center; border-radius: 50%; background: linear-gradient(145deg, #bd45f2, #603ee9); color: white; font-size: 12px; font-weight: 700; }
+		.profile small { display: block; color: #a1a8c0; font-size: 9px; }
+		.profile strong { display: block; max-width: 94px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 10px; }
+		.dashboard { display: grid; grid-template-columns: minmax(0, 1fr) minmax(250px, 26%); gap: 7px; }
+		.hero { position: relative; min-height: 256px; grid-column: 1; overflow: hidden; display: flex; align-items: flex-start; padding: 22px 22px 8px; border: 1px solid #151a31; border-radius: 9px; background: radial-gradient(ellipse at 79% 58%, #29105d 0, #171031 20%, #0b0d1e 54%); }
+		.hero-copy { position: relative; z-index: 2; max-width: 56%; }
+		.eyebrow { display: inline-block; margin-bottom: 9px; padding: 4px 9px; border: 1px solid #51406f; border-radius: 11px; background: #1b1732; color: #d7c6ff; font-size: 10px; }
+		h1 { max-width: 430px; margin: 0; font: 800 clamp(28px, 2.5vw, 36px)/1.07 'Manrope', sans-serif; letter-spacing: 0; }
+		h1 span { display: block; width: fit-content; background: linear-gradient(90deg, #dc3cf2, #7c45ff); background-clip: text; -webkit-background-clip: text; color: transparent; }
+		.hero-copy p { margin: 8px 0 0; color: #d3d5e4; font-size: 11px; line-height: 1.5; }
+		.hero-image { position: absolute; top: 0; right: 0; bottom: 70px; z-index: 1; width: 52%; height: auto; object-fit: cover; object-position: center 38%; }
+		.hero-actions { position: absolute; z-index: 2; left: 8px; right: 8px; bottom: 10px; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; }
+		.hero-action { min-width: 0; height: 50px; padding: 6px 9px; display: flex; align-items: center; gap: 8px; border: 1px solid #252a45; border-radius: 7px; background: #11172be8; text-align: left; }
+		.hero-action:hover { border-color: #7944d9; background: #21133e; }
+		.hero-action.selected { border-color: #8e43ef; background: #21133e; box-shadow: inset 0 0 0 1px #7130bf55; }
+		.action-icon { width: 32px; height: 32px; display: grid; flex: 0 0 auto; place-items: center; border: 1px solid #414766; border-radius: 6px; color: #e5dcff; }
+		.action-icon svg { width: 19px; height: 19px; display: block; fill: none; stroke: currentColor; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
+		.hero-action.selected .action-icon { background: linear-gradient(145deg, #a538f3, #6534de); border-color: #a451ff; }
+		.hero-action strong { display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 10px; }
+		.hero-action small { display: block; overflow: hidden; color: #c0c6db; text-overflow: ellipsis; white-space: nowrap; font-size: 9px; }
+		.panel { min-width: 0; border: 1px solid #1d233c; border-radius: 8px; background: var(--panel); overflow: hidden; }
+		.panel-head { height: 34px; display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 0 10px; border-bottom: 1px solid #1d233b; }
+		.panel-title { display: flex; align-items: center; gap: 7px; min-width: 0; font-size: 11px; font-weight: 700; }
+		.panel-title .title-icon { color: #b753ff; font-size: 14px; }
+		.text-link, .small-button { padding: 4px 6px; border: 0; background: transparent; color: #b65af7; font-size: 9px; white-space: nowrap; }
+		.small-button { border: 1px solid #343b5b; border-radius: 5px; color: #c8cde0; }
+		.meeting-details { grid-column: 2; grid-row: 1; min-height: 188px; }
+		.details-content { padding: 8px 11px; display: grid; gap: 8px; }
+		.detail-row { display: grid; grid-template-columns: 20px 1fr; gap: 8px; align-items: start; }
+		.detail-row > span:first-child { color: #bac1d8; font-size: 15px; line-height: 19px; }
+		.detail-row label { display: block; margin-bottom: 2px; color: #a1a9c3; font-size: 9px; }
+		.detail-row strong { display: block; font-size: 10px; font-weight: 500; line-height: 1.4; }
+		.workspace { grid-column: 1; display: grid; grid-template-columns: minmax(260px, 40%) minmax(0, 1fr); gap: 7px; }
+		.transcript-panel { min-height: 210px; }
+		.transcript-tools { height: 29px; display: flex; align-items: center; gap: 10px; padding: 0 10px; border-bottom: 1px solid #202641; color: #b9c0d7; font-size: 12px; }
+		.transcript-tools button { padding: 0; border: 0; background: transparent; color: inherit; font-size: 12px; }
+		.transcript-area { width: calc(100% - 18px); height: 100px; margin: 0 9px; padding: 10px; resize: none; border: 1px solid #252b46; border-radius: 5px; outline: none; background: #0b1020; color: #e2e5f5; font-size: 10px; line-height: 1.5; }
+		.transcript-area:focus { border-color: #8244dd; }
+		.transcript-area::placeholder { color: #7e87a3; }
+		.transcript-foot { display: flex; justify-content: flex-end; padding: 1px 12px 6px; color: #828ba7; font-size: 9px; }
+		.primary-button { height: 29px; display: flex; align-items: center; justify-content: center; gap: 7px; margin: 0 9px 8px; border: 0; border-radius: 6px; background: linear-gradient(100deg, #a537ef, #653cf1); box-shadow: 0 5px 18px #7535ed44; color: white; font-size: 10px; font-weight: 700; }
+		.primary-button:hover { filter: brightness(1.12); }
+		.summary-panel { min-height: 210px; }
+		.tabs { height: 34px; display: flex; align-items: stretch; border-bottom: 1px solid #202641; }
+		.tab { position: relative; padding: 0 11px; border: 0; background: transparent; color: #a7aec6; font-size: 9px; white-space: nowrap; }
+		.tab.active { color: #d892ff; }
+		.tab.active::after { content: ''; position: absolute; bottom: 0; left: 8px; right: 8px; height: 2px; background: #bf47f3; }
+		.summary-content { min-height: 97px; padding: 10px; }
+		.summary-card { min-height: 84px; padding: 8px; border: 1px solid #1c223a; border-radius: 6px; background: #12172b; }
+		.summary-top { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 4px; }
+		.summary-heading { display: flex; align-items: center; gap: 7px; font-size: 11px; font-weight: 700; }
+		.summary-heading span { width: 20px; height: 20px; display: inline-grid; place-items: center; border-radius: 5px; background: #943fee; }
+		.summary-card p { margin: 0; color: #d0d4e5; font-size: 10px; line-height: 1.45; }
+		.metrics { display: grid; grid-template-columns: repeat(4, 1fr); gap: 5px; padding: 0 8px 8px; }
+		.metric { min-height: 54px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; border: 1px solid #1b2138; border-radius: 6px; background: #12172b; text-align: center; }
+		.metric-icon { width: 19px; height: 19px; display: grid; place-items: center; border-radius: 50%; background: #7047ed; font-size: 11px; }
+		.metric:nth-child(2) .metric-icon { background: #34a985; }
+		.metric:nth-child(3) .metric-icon { background: #eaa530; }
+		.metric:nth-child(4) .metric-icon { background: #a833df; }
+		.metric strong { font-size: 10px; }
+		.metric small { color: #c0c5d8; font-size: 8px; }
+		.right-stack { grid-column: 2; display: grid; gap: 7px; grid-template-rows: auto auto; }
+		.participants { min-height: 160px; }
+		.person-list { padding: 4px 10px 8px; display: grid; gap: 5px; }
+		.person { min-width: 0; display: grid; grid-template-columns: 31px minmax(0, 1fr) auto; align-items: center; gap: 8px; }
+		.person .avatar { width: 31px; height: 31px; font-size: 13px; }
+		.person-info { min-width: 0; }
+		.person-info strong { display: block; overflow: hidden; font-size: 9px; font-weight: 600; text-overflow: ellipsis; white-space: nowrap; }
+		.person-info small { display: block; overflow: hidden; margin-top: 2px; color: #929ab5; font-size: 8px; text-overflow: ellipsis; white-space: nowrap; }
+		.role { padding: 4px 7px; border-radius: 10px; background: #20284a; color: #cbd2ed; font-size: 8px; }
+		.role.host { background: #7135b9; color: #f4e6ff; }
+		.lower-grid { grid-column: 1 / -1; display: grid; grid-template-columns: minmax(220px, .85fr) minmax(350px, 1.5fr) minmax(200px, .8fr); gap: 7px; }
+		.recent, .tasks, .decisions { min-height: 169px; }
+		.meeting-list { display: grid; gap: 2px; padding: 3px 9px 8px; }
+		.meeting-item { width: 100%; min-height: 32px; display: grid; grid-template-columns: 25px minmax(0, 1fr); align-items: center; gap: 7px; padding: 3px 5px; border: 1px solid transparent; border-radius: 5px; background: transparent; color: inherit; text-align: left; cursor: pointer; }
+		.meeting-item.current { border: 1px solid #4c348c; background: linear-gradient(100deg, #3d236d, #28204c); }
+		.meeting-icon { width: 22px; height: 22px; display: grid; place-items: center; border: 1px solid #853be3; border-radius: 5px; color: #d6b7ff; font-size: 12px; }
+		.meeting-item:nth-child(2) .meeting-icon { color: #ff8075; border-color: #cb594d; }
+		.meeting-name { overflow: hidden; font-size: 9px; font-weight: 600; text-overflow: ellipsis; white-space: nowrap; }
+		.meeting-time { margin-top: 2px; color: #a4abc2; font-size: 8px; }
+		.task-table { width: calc(100% - 14px); margin: 0 7px 7px; border-collapse: collapse; table-layout: fixed; }
+		.task-table th { height: 22px; color: #aab2ca; font-size: 8px; font-weight: 500; text-align: left; }
+		.task-table td { height: 20px; overflow: hidden; color: #d2d6e7; font-size: 8px; text-overflow: ellipsis; white-space: nowrap; }
+		.task-table th:first-child, .task-table td:first-child { width: 24px; }
+		.task-table th:nth-child(2) { width: 37%; }
+		.task-table th:nth-child(3) { width: 22%; }
+		.task-table th:nth-child(4) { width: 19%; }
+		.task-table input[type="checkbox"] { width: 11px; height: 11px; margin: 0; accent-color: #9345ef; vertical-align: middle; }
+		.owner { display: inline-flex; align-items: center; gap: 5px; }
+		.owner .avatar { width: 14px; height: 14px; font-size: 7px; }
+		.status { display: inline-block; max-width: 100%; padding: 3px 7px; overflow: hidden; border-radius: 10px; background: #1257b3; color: #e9f3ff; text-overflow: ellipsis; }
+		.status.progress { background: #a75b17; }
+		.status.not-started { background: #303a59; }
+		.status.completed { background: #176b4a; }
+		.add-task { padding: 5px 9px; border: 0; border-radius: 5px; background: linear-gradient(100deg, #a43df0, #7140ed); font-size: 9px; font-weight: 700; white-space: nowrap; }
+		.decision-list { display: grid; gap: 5px; padding: 5px 9px 8px; }
+		.decision { min-height: 27px; display: flex; align-items: center; gap: 8px; padding: 4px 5px; border-radius: 5px; background: #12172a; }
+		.decision-num { width: 23px; height: 23px; display: grid; flex: 0 0 auto; place-items: center; border-radius: 50%; background: linear-gradient(145deg, #a443f3, #622de4); font-size: 11px; font-weight: 700; }
+		.decision p { margin: 0; color: #d1d5e6; font-size: 9px; line-height: 1.3; }
+		.bottom-grid { grid-column: 1 / -1; display: grid; grid-template-columns: minmax(220px, .85fr) minmax(220px, 1fr) minmax(220px, 1fr) minmax(220px, .9fr); gap: 7px; }
+		.progress-panel, .clarifications, .next-steps, .integrations { min-height: 109px; }
+		.progress-content { display: flex; align-items: center; gap: 12px; padding: 5px 12px 8px; }
+		.donut { width: 70px; height: 70px; display: grid; flex: 0 0 auto; place-items: center; border-radius: 50%; background: conic-gradient(#b643eb 0 36%, #6740ed 36% 68%, #32364d 68% 100%); position: relative; }
+		.donut::before { content: ''; position: absolute; inset: 8px; border-radius: 50%; background: #111529; }
+		.donut strong { position: relative; font-size: 15px; }
+		.legend { display: grid; gap: 5px; width: 100%; }
+		.legend-row { display: grid; grid-template-columns: 9px 1fr auto; gap: 6px; align-items: center; color: #c3c9dc; font-size: 8px; }
+		.legend-dot { width: 8px; height: 8px; border-radius: 50%; background: #ba43e6; }
+		.legend-row:nth-child(2) .legend-dot { background: #f1838f; }
+		.legend-row:nth-child(3) .legend-dot { background: #f2b63d; }
+		.legend-row:nth-child(4) .legend-dot { background: #6c6be8; }
+		.list-rows { display: grid; gap: 2px; padding: 3px 9px 7px; }
+		.list-row { min-height: 22px; display: grid; grid-template-columns: 16px minmax(0, 1fr) 13px; align-items: center; gap: 6px; color: #d0d4e4; font-size: 8px; }
+		.row-icon { width: 16px; height: 16px; display: grid; place-items: center; border-radius: 50%; background: #e4a327; color: white; font-size: 10px; }
+		.list-row .chevron { color: #9ca5bf; font-size: 14px; text-align: right; }
+		.next-row { min-height: 22px; display: grid; grid-template-columns: 14px minmax(0, 1fr) 13px; align-items: center; gap: 6px; color: #d0d4e4; font-size: 8px; }
+		.next-row .check { color: #b44bea; font-size: 12px; }
+		.integration-list { display: grid; gap: 3px; padding: 3px 9px 8px; }
+		.integration { min-height: 21px; display: flex; align-items: center; gap: 7px; padding: 2px 6px; border: 1px solid #222842; border-radius: 5px; background: #14192b; color: #d0d5e7; font-size: 8px; }
+		.integration i { width: 14px; height: 14px; display: grid; place-items: center; border-radius: 3px; background: #e44754; color: white; font-style: normal; }
+		.integration:nth-child(2) i { background: #37a77e; }
+		.integration:nth-child(3) i { background: #8751e3; }
+		.integration:nth-child(4) i { background: #1685ec; }
+		.integration.double { display: grid; grid-template-columns: 1fr 1fr; gap: 5px; }
+		.integration.double span { display: flex; align-items: center; gap: 5px; white-space: nowrap; }
+		.skeleton { min-height: 10px; border-radius: 5px; background: linear-gradient(90deg, #252d4b, #303958 50%, #252d4b); background-size: 200% 100%; animation: shimmer 1.7s linear infinite; }
+		@keyframes shimmer { to { background-position: -200% 0; } }
+		.loading .detail-row strong, .loading .person-info strong, .loading .person-info small, .loading .meeting-name, .loading .meeting-time, .loading .task-table td:not(:first-child), .loading .decision p, .loading .legend-row span:nth-child(2), .loading .list-row > span:nth-child(2), .loading .next-row > span:nth-child(2) { color: transparent; border-radius: 5px; background: linear-gradient(90deg, #252d4b, #303958 50%, #252d4b); background-size: 200% 100%; animation: shimmer 1.7s linear infinite; }
+		.loading .detail-row strong { width: min(100%, 165px); height: 10px; }
+		.loading .person-info strong { width: 70%; height: 9px; }
+		.loading .person-info small { width: 90%; height: 8px; margin-top: 4px; }
+		.loading .meeting-name { width: 80%; height: 9px; }
+		.loading .meeting-time { width: 60%; height: 8px; }
+		.loading .task-table td:not(:first-child) { height: 10px; }
+		.loading .summary-card p { height: 46px; overflow: hidden; color: transparent; background: linear-gradient(#303958 0 0) 0 2px / 88% 8px no-repeat, linear-gradient(#303958 0 0) 0 18px / 94% 8px no-repeat, linear-gradient(#303958 0 0) 0 34px / 55% 8px no-repeat; }
+		.loading .transcript-area { color: transparent; background-image: linear-gradient(#303958 0 0), linear-gradient(#303958 0 0), linear-gradient(#303958 0 0); background-size: 78% 9px, 85% 9px, 38% 9px; background-position: 12px 12px, 12px 30px, 12px 48px; background-repeat: no-repeat; }
+		.loading .transcript-area::placeholder { color: transparent; }
+		.loading #progressPercent { color: transparent; }
+		.toast { position: fixed; right: 18px; bottom: 18px; z-index: 5; padding: 10px 14px; border: 1px solid #4b367c; border-radius: 7px; background: #1a1730; box-shadow: 0 8px 30px #0008; color: #eee7ff; opacity: 0; transform: translateY(8px); transition: .2s ease; pointer-events: none; }
+		.toast.show { opacity: 1; transform: translateY(0); }
+		@media (min-width: 1450px) { .app { --sidebar-width: 188px; } .main { padding-inline: 14px; } .dashboard { gap: 9px; } .hero { min-height: 256px; } .meeting-details { min-height: 205px; } }
+		@media (max-width: 1100px) {
+			:root { --sidebar-width: 154px; }
+			.dashboard { grid-template-columns: minmax(0, 1fr) 245px; }
+			.workspace { grid-template-columns: minmax(230px, 40%) minmax(0, 1fr); }
+			.lower-grid { grid-template-columns: minmax(190px, .8fr) minmax(320px, 1.4fr); }
+			.decisions { grid-column: 1 / -1; min-height: 100px; }
+			.decision-list { grid-template-columns: repeat(3, 1fr); }
+			.bottom-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+		}
+		@media (max-width: 760px) {
+			.app { display: block; }
+			.sidebar { position: sticky; z-index: 4; height: auto; min-height: 0; padding: 8px 10px 6px; border-right: 0; border-bottom: 1px solid #1e2440; }
+			.brand { height: 35px; padding: 0 3px 6px; border: 0; }
+			.nav { display: flex; gap: 5px; padding-top: 5px; overflow-x: auto; scrollbar-width: none; }
+			.nav-link { min-width: max-content; min-height: 30px; padding: 0 9px; gap: 6px; }
+			.sidebar-promo { display: none; }
+			.main { padding: 0 9px 10px; }
+			.topbar { height: 46px; }
+			.search { width: min(360px, 53vw); }
+			.profile { min-width: 27px; }
+			.profile > div:last-child, .theme-toggle { display: none; }
+			.dashboard { grid-template-columns: minmax(0, 1fr); }
+			.hero { grid-column: 1; min-height: 185px; }
+			.meeting-details { grid-column: 1; grid-row: auto; min-height: 0; }
+			.details-content { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+			.workspace { grid-column: 1; grid-template-columns: minmax(0, 1fr); }
+			.transcript-panel, .summary-panel { min-height: 0; }
+			.right-stack { grid-column: 1; grid-template-columns: repeat(2, minmax(0, 1fr)); grid-template-rows: auto; }
+			.participants { min-height: 0; }
+			.lower-grid { grid-column: 1; grid-template-columns: minmax(0, 1fr); }
+			.decisions { grid-column: auto; }
+			.decision-list { grid-template-columns: 1fr; }
+			.bottom-grid { grid-column: 1; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+		}
+		@media (max-width: 500px) {
+			body { font-size: 11px; }
+			.top-actions { gap: 2px; }
+			.shortcut { display: none; }
+			.search { width: calc(100% - 92px); }
+			.hero-copy { max-width: 73%; }
+			h1 { font-size: 23px; }
+			.hero-copy p { max-width: 240px; font-size: 9px; }
+			.hero-image { right: -19%; width: 67%; opacity: .85; }
+			.hero-actions { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+			.hero-action { height: 38px; }
+			.hero { min-height: 260px; }
+			.tabs { overflow-x: auto; }
+			.tab { padding-inline: 9px; }
+			.right-stack, .bottom-grid { grid-template-columns: 1fr; }
+			.details-content { grid-template-columns: 1fr 1fr; }
+			.task-table th:nth-child(3) { width: 20%; }
+			.task-table th:nth-child(4) { width: 23%; }
+			.task-table td { font-size: 7px; }
+		}
+		/* Keep dashboard text readable across the full page. */
+		body:not([data-page]) { font-size: 16px; }
+		body:not([data-page]) .brand-sub,
+		body:not([data-page]) .nav-link,
+		body:not([data-page]) .search input,
+		body:not([data-page]) .shortcut,
+		body:not([data-page]) .profile small,
+		body:not([data-page]) .profile strong,
+		body:not([data-page]) .eyebrow,
+		body:not([data-page]) .hero-copy p,
+		body:not([data-page]) .hero-action strong,
+		body:not([data-page]) .hero-action small,
+		body:not([data-page]) .panel-title,
+		body:not([data-page]) .text-link,
+		body:not([data-page]) .small-button,
+		body:not([data-page]) .detail-row label,
+		body:not([data-page]) .detail-row strong,
+		body:not([data-page]) .transcript-tools,
+		body:not([data-page]) .transcript-tools button,
+		body:not([data-page]) .transcript-area,
+		body:not([data-page]) .transcript-foot,
+		body:not([data-page]) .primary-button,
+		body:not([data-page]) .tab,
+		body:not([data-page]) .summary-heading,
+		body:not([data-page]) .summary-card p,
+		body:not([data-page]) .metric strong,
+		body:not([data-page]) .metric small,
+		body:not([data-page]) .person-info strong,
+		body:not([data-page]) .person-info small,
+		body:not([data-page]) .role,
+		body:not([data-page]) .meeting-name,
+		body:not([data-page]) .meeting-time,
+		body:not([data-page]) .task-table th,
+		body:not([data-page]) .task-table td,
+		body:not([data-page]) .owner,
+		body:not([data-page]) .status,
+		body:not([data-page]) .add-task,
+		body:not([data-page]) .decision p,
+		body:not([data-page]) .legend-row,
+		body:not([data-page]) .list-row,
+		body:not([data-page]) .next-row,
+		body:not([data-page]) .integration { font-size: 16px; }
+		body:not([data-page]) .summary-card p,
+		body:not([data-page]) .task-table td,
+		body:not([data-page]) .decision p,
+		body:not([data-page]) .list-row,
+		body:not([data-page]) .next-row { font-size: 18px; }
+		body:not([data-page]) .panel-head { height: auto; min-height: 48px; }
+		body:not([data-page]) .meeting-item { min-height: 50px; }
+		body:not([data-page]) .task-table th,
+		body:not([data-page]) .task-table td { height: 38px; }
+		@media print {
+			:root, body { background: #fff !important; color: #111 !important; color-scheme: light; }
+			.sidebar, .topbar, .hero-actions, .transcript-tools, button, .toast { display: none !important; }
+			.app, .main, .dashboard { display: block !important; width: 100% !important; padding: 0 !important; }
+			.panel { break-inside: avoid; border-color: #bbb !important; background: #fff !important; color: #111 !important; }
+			.panel *, .summary-content, .detail-row strong { color: #111 !important; }
+		}
+	</style>
+	<link rel="stylesheet" href="sidebar.css">
+</head>
+<body>
+	<div class="app">
+		<aside class="sidebar">
+			<div class="brand"><span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span><div><div class="brand-name">MeetMate <span>AI</span></div><small class="brand-sub">From Meetings to Action</small></div></div>
+			<nav class="nav" aria-label="Main navigation">
+				<a class="nav-link active" href="homepage.html" data-nav="Dashboard"><span class="nav-icon">⌂</span>Dashboard</a>
+				<a class="nav-link" href="New_Meeting.html" data-nav="New Meeting"><span class="nav-icon">⊞</span>New Meeting</a>
+				<a class="nav-link" href="Meetings.html" data-nav="Meetings"><span class="nav-icon">▣</span>Meetings</a>
+			</nav>
+			<div class="sidebar-promo"><img class="promo-image" src="side-robot.webp" alt="MeetMate AI assistant robot"><div class="promo-copy"><strong>Turn Discussions<br>into Actions</strong><p>AI-powered meeting summaries, tasks and follow-ups.</p></div></div>
+		</aside>
+		<main class="main">
+			<header class="topbar">
+				<label class="search"><span>⌕</span><input id="searchInput" type="search" placeholder="Search meetings, decisions or tasks..." aria-label="Search meetings, decisions or tasks"><kbd class="shortcut">Ctrl K</kbd></label>
+				<div class="top-actions"><button class="theme-toggle" aria-label="Toggle theme"><span>☼</span><span class="toggle-dot"></span></button><button class="icon-button" title="Notifications" aria-label="Notifications">♧</button><div class="profile"><span class="avatar">A</span><div><strong id="profileName">Abhishek K</strong><small>Student</small></div></div></div>
+			</header>
+			<div class="dashboard" id="dashboard">
+				<section class="hero">
+					<div class="hero-copy"><span class="eyebrow">AI Meeting Assistant</span><h1>Turn Meetings into <span>Real Action</span></h1><p>Upload, transcribe and get clear summaries, decisions, tasks and next steps with AI.</p></div>
+					<img class="hero-image" src="hero.webp" alt="MeetMate AI assistant helping turn meeting notes into actions">
+					<div class="hero-actions"><button class="hero-action selected" data-mode="paste"><span class="action-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 3.5h7l4 4v13H7z"/><path d="M14 3.5v4h4M10 12h5M10 15.5h5"/></svg></span><span><strong>Paste Transcript</strong><small>Type or paste meeting text</small></span></button><button class="hero-action" data-mode="upload"><span class="action-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 15V4m0 0 4 4m-4-4L8 8"/><path d="M5 14v5h14v-5"/></svg></span><span><strong>Upload File</strong><small>PDF, DOC, TXT, MP3</small></span></button><button class="hero-action" data-mode="record"><span class="action-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="9" y="3" width="6" height="12" rx="3"/><path d="M6 11v1a6 6 0 0 0 12 0v-1M12 18v3m-4 0h8"/></svg></span><span><strong>Live Recording</strong><small>Record and transcribe</small></span></button><button class="hero-action" data-mode="template"><span class="action-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 3.5h7l4 4v13H7z"/><path d="M14 3.5v4h4M10 12h5M10 15.5h5"/></svg></span><span><strong>Use Template</strong><small>Try a sample transcript</small></span></button></div>
+				</section>
+				<section class="panel meeting-details"><div class="panel-head"><div class="panel-title"><span class="title-icon">▣</span>Meeting Details</div><button class="small-button" id="editMeeting">⌁ Edit</button></div><div class="details-content" id="meetingDetails"></div></section>
+				<section class="workspace">
+					<div class="panel transcript-panel"><div class="panel-head"><div class="panel-title"><span class="title-icon">▣</span>Meeting Transcript</div><button class="small-button" id="sampleButton">▤ Sample</button></div><div class="transcript-tools" aria-label="Text formatting"><button title="Bold"><b>B</b></button><button title="Italic"><i>I</i></button><button title="Underline"><u>U</u></button><button title="Link">↪</button><button title="Undo">⌁</button><button title="More">⌄</button><button title="List">☷</button></div><textarea class="transcript-area" id="transcript" maxlength="50000" placeholder="Paste your meeting transcript here..." aria-label="Meeting transcript"></textarea><div class="transcript-foot"><span id="charCount">0/50000</span></div><button class="primary-button" id="generateButton">✦ &nbsp; Generate Meeting Insights</button></div>
+					<div class="panel summary-panel"><div class="tabs" role="tablist"><button class="tab active" data-tab="Summary">Summary</button><button class="tab" data-tab="Action Items">Action Items</button><button class="tab" data-tab="Decisions">Decisions</button><button class="tab" data-tab="Clarifications">Clarifications</button><button class="tab" data-tab="Transcript">Transcript</button></div><div class="summary-content" id="tabContent"></div><div class="metrics" id="metrics"></div></div>
+				</section>
+				<section class="right-stack"><div class="panel participants"><div class="panel-head"><div class="panel-title"><span class="title-icon">▣</span>Participants</div><button class="text-link">View All</button></div><div class="person-list" id="participants"></div></div></section>
+				<section class="lower-grid"><div class="panel recent"><div class="panel-head"><div class="panel-title"><span class="title-icon">▣</span>Recent Meetings</div><button class="text-link">View All</button></div><div class="meeting-list" id="recentMeetings"></div></div><div class="panel tasks"><div class="panel-head"><div class="panel-title"><span class="title-icon">▣</span>Action Items <span id="taskCount"></span></div><button class="add-task" id="addTask">＋ Add Task</button></div><table class="task-table"><thead><tr><th></th><th>Task</th><th>Owner</th><th>Deadline</th><th>Status</th></tr></thead><tbody id="tasks"></tbody></table></div><div class="panel decisions"><div class="panel-head"><div class="panel-title"><span class="title-icon">♙</span>Key Decisions</div><button class="text-link">View All</button></div><div class="decision-list" id="keyDecisionsSmall"></div></div></section>
+				<section class="bottom-grid"><div class="panel progress-panel"><div class="panel-head"><div class="panel-title"><span class="title-icon">▣</span>Meeting Progress</div></div><div class="progress-content"><div class="donut" id="progressDonut"><strong id="progressPercent">68%</strong></div><div class="legend" id="progressLegend"></div></div></div><div class="panel clarifications"><div class="panel-head"><div class="panel-title"><span class="row-icon">?</span>Needs Clarification</div></div><div class="list-rows" id="clarifications"></div></div><div class="panel next-steps"><div class="panel-head"><div class="panel-title"><span class="title-icon">⚑</span>Next Steps</div></div><div class="list-rows" id="nextSteps"></div></div><div class="panel integrations"><div class="panel-head"><div class="panel-title"><span class="title-icon">♣</span>Export &amp; Integrations</div></div><div class="integration-list"><button class="integration"><i>▣</i>Export as PDF</button><div class="integration double"><span><i>▦</i>Export as CSV</span><span><i>◷</i>Sync calendar</span></div><button class="integration"><i>▣</i>Sync with Google Calendar</button><button class="integration"><i>▰</i>Push to Trello</button></div></div></section>
+			</div>
+		</main>
+	</div>
+	<div class="toast" id="toast" role="status" aria-live="polite"></div>
+	<script>
+		// Keep this object as the single source of truth for dashboard content.
+		const dashboardData = {
+			user: 'Abhishek K',
+			meeting: { title: 'College Placement Platform Discussion', date: '15 Oct 2026, 10:00 AM – 11:00 AM', mode: 'Online (Google Meet)', participants: '5 Members' },
+			summary: 'The team discussed the development progress of the college placement platform. Key topics included dataset collection, model training, frontend development and deployment timeline. The team agreed to finalize the dataset by 20th October and conduct internal testing before release.',
+			metrics: [{ icon: '✓', count: '6', label: 'Action Items' }, { icon: '♟', count: '3', label: 'Key Decisions' }, { icon: '❔', count: '2', label: 'Clarifications' }, { icon: '♣', count: '4', label: 'Participants' }],
+			participants: [
+				{ name: 'Abhishek K (You)', email: 'abhishek@example.com', role: 'Host', initials: 'A', color: '#9946ed' },
+				{ name: 'Rahul', email: 'rahul@example.com', role: 'Member', initials: 'R', color: '#f2674e' },
+				{ name: 'Sneha', email: 'sneha@example.com', role: 'Member', initials: 'S', color: '#873ee9' },
+				{ name: 'Team', email: 'team@example.com', role: 'Member', initials: 'T', color: '#676ce9' }
+			],
+			tasks: [
+				{ name: 'Prepare dataset for ML module', owner: 'Abhishek', initials: 'A', color: '#7552ee', due: '20 Oct 2026', status: 'In Progress' },
+				{ name: 'Develop UI prototype', owner: 'Rahul', initials: 'R', color: '#e65752', due: '18 Oct 2026', status: 'Pending' },
+				{ name: 'Integrate authentication', owner: 'Sneha', initials: 'S', color: '#8645eb', due: '25 Oct 2026', status: 'Pending' },
+				{ name: 'Prepare demo presentation', owner: 'Team', initials: 'T', color: '#5c67e9', due: '28 Oct 2026', status: 'Not Started' },
+				{ name: 'Write project report', owner: 'Abhishek', initials: 'A', color: '#7552ee', due: '30 Oct 2026', status: 'Pending' },
+				{ name: 'Conduct internal testing', owner: 'Rahul', initials: 'R', color: '#e65752', due: '02 Nov 2026', status: 'Pending' }
+			],
+			decisions: ['Use Next.js for frontend development.', 'Finalize dataset collection by 20 Oct 2026.', 'Conduct internal testing before release.'],
+			recent: [
+				{ name: 'Project Kickoff Discussion', date: '15 Oct 2026 · 45 min', current: true },
+				{ name: 'ML Model Review', date: '12 Oct 2026 · 30 min' },
+				{ name: 'College Placement Meeting', date: '10 Oct 2026 · 50 min' },
+				{ name: 'Team Sync', date: '08 Oct 2026 · 25 min' }
+			],
+			progress: [{ label: 'Completed', count: '8' }, { label: 'In Progress', count: '5' }, { label: 'Pending', count: '4' }, { label: 'Not Started', count: '3' }],
+			clarifications: ['Which dataset version should be used for final training?', 'Will the demo be online or offline?', 'Is the faculty review on 28th confirmed?'],
+			nextSteps: ['Share meeting summary with all participants.', 'Update tasks in project tracker.', 'Schedule follow-up meeting next week.', 'Prepare initial prototype for review.'],
+			sampleTranscript: 'Abhishek: We should finalize the placement dataset by October 20. Rahul will prepare the frontend prototype using Next.js by October 18. Sneha will integrate authentication and share the test plan. The team agreed to run internal testing before release and review progress next week.'
+		};
+		Object.assign(dashboardData, {
+			meeting: { title: 'No meetings yet', date: 'No date set', mode: '-', participants: '0 Members' },
+			summary: 'Saved meeting summaries will appear here.',
+			transcript: '',
+			metrics: [{ icon: '', count: '0', label: 'Action Items' }, { icon: '', count: '0', label: 'Key Decisions' }, { icon: '', count: '0', label: 'Clarifications' }, { icon: '', count: '0', label: 'Participants' }],
+			participants: [], tasks: [], decisions: [], recent: [], progress: [{ label: 'Action Items', count: '0' }, { label: 'Meetings', count: '0' }], clarifications: [], nextSteps: []
+		});
+		const $ = (selector) => document.querySelector(selector);
+		let activeRecognition = null;
+		const escapeHtml = (value) => String(value).replace(/[&<>"']/g, (char) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[char]));
+		const taskStorageKey = 'meetmate.dashboard.tasks.v1';
+		function readTaskState() {
+			try { return JSON.parse(localStorage.getItem(taskStorageKey) || '{"custom":[],"completed":[]}'); }
+			catch { return { custom: [], completed: [] }; }
+		}
+		function saveTaskState(state) {
+			try { localStorage.setItem(taskStorageKey, JSON.stringify(state)); }
+			catch { showToast('Could not save task changes in this browser'); }
+		}
+		const initialTaskState = readTaskState();
+		const initiallyCompleted = new Set(initialTaskState.completed || []);
+		dashboardData.tasks = (initialTaskState.custom || []).map((task) => ({ ...task, completed: initiallyCompleted.has(task.id) }));
+		function syncTaskSummary() {
+			dashboardData.metrics = dashboardData.metrics.map((metric) => metric.label === 'Action Items' ? { ...metric, count: String(dashboardData.tasks.length) } : metric);
+			dashboardData.progress = dashboardData.progress.map((item) => item.label === 'Action Items' ? { ...item, count: String(dashboardData.tasks.length) } : item);
+			dashboardData.nextSteps = dashboardData.tasks.map((task) => task.name);
+		}
+		syncTaskSummary();
+
+		function renderDashboard(data) {
+			$('#profileName').textContent = data.user;
+			$('#meetingDetails').innerHTML = [
+				['▣', 'Title', data.meeting.title], ['▦', 'Date', data.meeting.date], ['♧', 'Mode', data.meeting.mode], ['♙', 'Participants', data.meeting.participants]
+			].map(([icon, label, value]) => `<div class="detail-row"><span>${icon}</span><div><label>${escapeHtml(label)}</label><strong>${escapeHtml(value)}</strong></div></div>`).join('');
+			$('#participants').innerHTML = data.participants.map((person) => `<div class="person"><span class="avatar" style="background:${person.color}">${escapeHtml(person.initials)}</span><div class="person-info"><strong>${escapeHtml(person.name)}</strong><small>${escapeHtml(person.email)}</small></div><span class="role ${person.role === 'Host' ? 'host' : ''}">${escapeHtml(person.role)}</span></div>`).join('');
+			$('#tasks').innerHTML = data.tasks.map((task) => `<tr><td><input type="checkbox" data-task-id="${escapeHtml(task.id)}" aria-label="Mark ${escapeHtml(task.name)} complete" ${task.completed ? 'checked' : ''}></td><td title="${escapeHtml(task.name)}">${escapeHtml(task.name)}</td><td><span class="owner"><span class="avatar" style="background:${task.color}">${escapeHtml(task.initials)}</span>${escapeHtml(task.owner)}</span></td><td>${escapeHtml(task.due)}</td><td><span class="status ${task.completed ? 'completed' : task.status === 'In Progress' ? 'progress' : task.status === 'Not Started' ? 'not-started' : ''}">${task.completed ? 'Completed' : escapeHtml(task.status)}</span></td></tr>`).join('');
+			$('#taskCount').textContent = `(${data.tasks.length})`;
+			const decisions = data.decisions.map((decision, index) => `<div class="decision"><span class="decision-num">${index + 1}</span><p>${escapeHtml(decision)}</p></div>`).join('');
+			$('#keyDecisionsSmall').innerHTML = decisions;
+			$('#recentMeetings').innerHTML = data.recent.map((meeting, index) => `<button type="button" class="meeting-item ${meeting.current ? 'current' : ''}" data-meeting-id="${escapeHtml(meeting.id)}" aria-pressed="${meeting.current}"><span class="meeting-icon">${index % 2 ? '▣' : '▤'}</span><span><span class="meeting-name">${escapeHtml(meeting.name)}</span><span class="meeting-time">${escapeHtml(meeting.date)}</span></span></button>`).join('');
+			$('#progressLegend').innerHTML = data.progress.map((item) => `<div class="legend-row"><span class="legend-dot"></span><span>${escapeHtml(item.label)}</span><span>${escapeHtml(item.count)}</span></div>`).join('');
+			$('#clarifications').innerHTML = data.clarifications.map((text) => `<div class="list-row"><span class="row-icon">?</span><span>${escapeHtml(text)}</span><span class="chevron">›</span></div>`).join('');
+			$('#nextSteps').innerHTML = data.nextSteps.map((text) => `<div class="next-row"><span class="check">☑</span><span>${escapeHtml(text)}</span><span class="chevron">›</span></div>`).join('');
+			renderTab('Summary', data);
+		}
+		function renderTab(tab, data) {
+			document.querySelectorAll('.tab').forEach((button) => button.classList.toggle('active', button.dataset.tab === tab));
+			let content = '';
+			if (tab === 'Summary') content = `<div class="summary-card"><div class="summary-top"><div class="summary-heading"><span>▣</span>Meeting Summary</div><button class="small-button" id="copySummary">▢ Copy</button></div><p>${escapeHtml(data.summary)}</p></div>`;
+			if (tab === 'Action Items') content = `<div class="summary-card"><div class="summary-heading">☑ &nbsp; ${data.tasks.length} Action Items</div><p>${data.tasks.slice(0, 3).map((task) => escapeHtml(task.name)).join(' · ')}</p></div>`;
+			if (tab === 'Decisions') content = `<div class="summary-card"><div class="summary-heading">♙ &nbsp; Key Decisions</div><p>${data.decisions.map(escapeHtml).join(' · ')}</p></div>`;
+			if (tab === 'Clarifications') content = `<div class="summary-card"><div class="summary-heading">❔ &nbsp; Clarifications</div><p>${data.clarifications.map(escapeHtml).join(' · ')}</p></div>`;
+			if (tab === 'Transcript') content = `<div class="summary-card"><div class="summary-heading">▤ &nbsp; Transcript Preview</div><p>${escapeHtml(data.transcript || 'No transcript saved for this meeting.')}</p></div>`;
+			$('#tabContent').innerHTML = content;
+			$('#metrics').innerHTML = data.metrics.map((metric) => `<div class="metric"><span class="metric-icon">${metric.icon}</span><strong>${escapeHtml(metric.count)}</strong><small>${escapeHtml(metric.label)}</small></div>`).join('');
+			const copy = $('#copySummary');
+			if (copy) copy.addEventListener('click', async () => { await navigator.clipboard?.writeText(data.summary); showToast('Summary copied to clipboard'); });
+		}
+		function showToast(message) {
+			const toast = $('#toast');
+			toast.textContent = message;
+			toast.classList.add('show');
+			clearTimeout(showToast.timer);
+			showToast.timer = setTimeout(() => toast.classList.remove('show'), 2400);
+		}
+		function downloadDashboardFile(name, content, type) {
+			const url = URL.createObjectURL(new Blob([content], { type }));
+			const link = document.createElement('a');
+			link.href = url;
+			link.download = name;
+			document.body.append(link);
+			link.click();
+			link.remove();
+			setTimeout(() => URL.revokeObjectURL(url), 1000);
+		}
+		const csvCell = (value) => `"${String(value ?? '').replaceAll('"', '""')}"`;
+		function exportDashboard(kind) {
+			const safeTitle = (dashboardData.meeting.title || 'meeting').replace(/[^a-z0-9]+/gi, '-').replace(/^-|-$/g, '').toLowerCase() || 'meeting';
+			if (kind === 'pdf') { window.print(); return; }
+			if (kind === 'csv') {
+				const rows = [['Meeting', 'Date', 'Type', 'Details'], [dashboardData.meeting.title, dashboardData.meeting.date, 'Summary', dashboardData.summary], ...dashboardData.tasks.map((task) => [dashboardData.meeting.title, dashboardData.meeting.date, 'Action Item', task.name]), ...dashboardData.decisions.map((item) => [dashboardData.meeting.title, dashboardData.meeting.date, 'Decision', item]), ...dashboardData.clarifications.map((item) => [dashboardData.meeting.title, dashboardData.meeting.date, 'Clarification', item])];
+				downloadDashboardFile(`${safeTitle}.csv`, '\ufeff' + rows.map((row) => row.map(csvCell).join(',')).join('\r\n'), 'text/csv;charset=utf-8');
+				showToast('Meeting data exported as CSV');
+				return;
+			}
+			if (kind === 'trello') {
+				if (!dashboardData.tasks.length) return showToast('There are no action items to export');
+				const rows = [['Name', 'Description', 'List'], ...dashboardData.tasks.map((task) => [task.name, `Owner: ${task.owner}; Due: ${task.due}`, task.completed ? 'Done' : 'To Do'])];
+				downloadDashboardFile(`${safeTitle}-trello.csv`, rows.map((row) => row.map(csvCell).join(',')).join('\r\n'), 'text/csv;charset=utf-8');
+				showToast('Trello import CSV downloaded');
+				return;
+			}
+			if (kind === 'calendar') {
+				const date = new Date(dashboardData.meeting.date);
+				const stamp = Number.isNaN(date.valueOf()) ? new Date() : date;
+				const toUtc = (value) => value.toISOString().replace(/[-:]/g, '').replace(/\.\d{3}/, '');
+				const escapeIcs = (value) => String(value || '').replace(/\\/g, '\\\\').replace(/\n/g, '\\n').replace(/,/g, '\\,').replace(/;/g, '\\;');
+				const calendar = ['BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//MeetMate AI//Dashboard//EN', 'BEGIN:VEVENT', `UID:${Date.now()}@meetmate.local`, `DTSTAMP:${toUtc(new Date())}`, `DTSTART:${toUtc(stamp)}`, `SUMMARY:${escapeIcs(dashboardData.meeting.title)}`, `DESCRIPTION:${escapeIcs(dashboardData.summary)}`, 'END:VEVENT', 'END:VCALENDAR'].join('\r\n');
+				downloadDashboardFile(`${safeTitle}.ics`, calendar, 'text/calendar;charset=utf-8');
+				showToast('Calendar event downloaded');
+			}
+		}
+		async function loadDashboardMeetings() {
+			try {
+				const response = await fetch('/api/meetings');
+				const result = await response.json();
+				if (!response.ok) throw new Error(result.error || 'Could not load meetings');
+				if (!Array.isArray(result)) throw new Error('The meetings response was invalid');
+				const meetings = result;
+				const savedTasks = readTaskState();
+				const completed = new Set(savedTasks.completed || []);
+				const customTasks = (savedTasks.custom || []).map((task) => ({ ...task, completed: completed.has(task.id) }));
+				const formatDate = (value) => {
+					if (!value) return 'Date not set';
+					const date = new Date(value);
+					return Number.isNaN(date.valueOf()) ? value : new Intl.DateTimeFormat(undefined, { dateStyle: 'medium', timeStyle: 'short' }).format(date);
+				};
+				const selectMeeting = (selectedId) => {
+					const selected = meetings.find((meeting) => String(meeting.id) === String(selectedId)) || meetings[0];
+					const participants = selected?.participants || [];
+					const decisions = selected?.decisions || [];
+					const clarifications = selected?.clarifications || [];
+					const actions = (selected?.actionItems || []).map((name, index) => {
+						const id = `meeting:${selected.id || selected.title}:${index}`;
+						return { id, name, owner: 'Unassigned', initials: '•', color: '#7552ee', due: 'Not set', status: 'Saved', completed: completed.has(id) };
+					});
+					const allTasks = [...actions, ...customTasks];
+					Object.assign(dashboardData, {
+						meetingId: selected?.id ?? null,
+						meeting: selected ? { title: selected.title, date: formatDate(selected.date), mode: selected.mode || '-', participants: `${participants.length} Members` } : { title: 'No meetings yet', date: 'No date set', mode: '-', participants: '0 Members' },
+						summary: selected?.summary || 'No summary has been saved for this meeting.', transcript: selected?.transcript || '',
+						metrics: [{ icon: '', count: String(actions.length), label: 'Action Items' }, { icon: '', count: String(decisions.length), label: 'Key Decisions' }, { icon: '', count: String(clarifications.length), label: 'Clarifications' }, { icon: '', count: String(participants.length), label: 'Participants' }],
+						participants: participants.map((name, index) => ({ name, email: '', role: '', initials: String(name).trim().split(/\s+/).map((part) => part[0]).join('').slice(0, 2).toUpperCase(), color: ['#9946ed', '#f2674e', '#873ee9', '#676ce9'][index % 4] })),
+						tasks: allTasks, decisions, clarifications,
+						recent: meetings.map((meeting) => ({ id: String(meeting.id), name: meeting.title, date: formatDate(meeting.date), current: String(meeting.id) === String(selected?.id) })),
+						progress: [{ label: 'Action Items', count: String(actions.length) }, { label: 'Meetings', count: String(meetings.length) }], nextSteps: actions.map((task) => task.name)
+					});
+					renderDashboard(dashboardData);
+				};
+			window.selectDashboardMeeting = selectMeeting;
+			selectMeeting(meetings[0]?.id);
+			} catch (error) {
+				showToast(`${error.message}. Start the backend server to load saved meetings.`);
+			}
+		}
+		window.updateMeetMateDashboard = (updates) => {
+			Object.assign(dashboardData, updates);
+			renderDashboard(dashboardData);
+		};
+		renderDashboard(dashboardData);
+		loadDashboardMeetings();
+		if (new URLSearchParams(location.search).has('loading')) document.body.classList.add('loading');
+		document.querySelectorAll('.integration.double span').forEach((item) => {
+			const button = document.createElement('button'); button.type = 'button'; button.className = 'integration'; button.innerHTML = item.innerHTML; item.replaceWith(button);
+		});
+		document.querySelectorAll('.integration-list > .integration, .integration.double > .integration').forEach((control) => {
+			const label = control.textContent.toLowerCase();
+			control.dataset.export = label.includes('pdf') ? 'pdf' : label.includes('csv') ? 'csv' : label.includes('calendar') ? 'calendar' : label.includes('trello') ? 'trello' : '';
+		});
+		$('.integration-list').addEventListener('click', (event) => {
+			const control = event.target.closest('[data-export]');
+			if (control?.dataset.export) exportDashboard(control.dataset.export);
+		});
+		$('#transcript').addEventListener('input', (event) => { $('#charCount').textContent = `${event.target.value.length}/50000`; });
+		$('#sampleButton').addEventListener('click', () => { $('#transcript').value = dashboardData.sampleTranscript; $('#charCount').textContent = `${$('#transcript').value.length}/50000`; });
+		document.querySelectorAll('.tab').forEach((button) => button.addEventListener('click', () => renderTab(button.dataset.tab, dashboardData)));
+		$('#recentMeetings').addEventListener('click', (event) => {
+			const meeting = event.target.closest('[data-meeting-id]');
+			if (meeting && window.selectDashboardMeeting) window.selectDashboardMeeting(meeting.dataset.meetingId);
+		});
+		document.querySelectorAll('.nav-link').forEach((button) => button.addEventListener('click', () => {
+			document.querySelectorAll('.nav-link').forEach((link) => link.classList.toggle('active', link === button));
+			if (button.dataset.nav !== 'Dashboard') showToast(`${button.dataset.nav} view selected`);
+		}));
+		document.querySelectorAll('.hero-action').forEach((button) => button.addEventListener('click', () => {
+			document.querySelectorAll('.hero-action').forEach((action) => action.classList.toggle('selected', action === button));
+			if (button.dataset.mode === 'template') $('#transcript').value = dashboardData.sampleTranscript;
+			else if (button.dataset.mode === 'upload') {
+				const input = document.createElement('input'); input.type = 'file'; input.accept = '.txt,.mp3,.m4a,.wav,.webm,.mp4,.mpeg,.mpga,.oga,audio/*';
+				input.addEventListener('change', async () => {
+					const file = input.files?.[0]; if (!file) return;
+					if (/\.txt$/i.test(file.name)) {
+						try { $('#transcript').value = await file.text(); $('#charCount').textContent = `${$('#transcript').value.length}/50000`; showToast('Transcript loaded'); }
+						catch { showToast('Could not read this text file'); }
+						return;
+					}
+					const data = new FormData(); data.append('file', file);
+					try {
+						showToast('Transcribing audio…');
+						const response = await fetch('/api/transcribe', { method: 'POST', body: data });
+						const result = await response.json();
+						if (!response.ok) throw new Error(result.error || 'Transcription failed');
+						$('#transcript').value = result.transcript || ''; $('#charCount').textContent = `${$('#transcript').value.length}/50000`; showToast('Audio transcribed');
+					} catch (error) { showToast(error.message); }
+				});
+				input.click();
+			}
+			else if (button.dataset.mode === 'record') {
+				const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+				if (!SpeechRecognition) { showToast('Live recording is not supported in this browser. Upload an audio file instead.'); return; }
+				if (activeRecognition) { activeRecognition.stop(); activeRecognition = null; showToast('Recording stopped'); return; }
+				const recognition = new SpeechRecognition(); recognition.continuous = true; recognition.interimResults = true;
+				activeRecognition = recognition;
+				const baseText = $('#transcript').value.trim();
+				recognition.onresult = (event) => { const spoken = Array.from(event.results).map((result) => result[0].transcript).join(' '); $('#transcript').value = [baseText, spoken].filter(Boolean).join(' '); $('#charCount').textContent = `${$('#transcript').value.length}/50000`; };
+				recognition.onerror = () => { activeRecognition = null; showToast('Microphone recording failed. Check browser microphone access.'); };
+				recognition.onend = () => { activeRecognition = null; };
+				recognition.start(); showToast('Recording started. Select Live Recording again to stop.');
+			}
+			$('#charCount').textContent = `${$('#transcript').value.length}/50000`;
+		}));
+		$('#generateButton').addEventListener('click', async () => {
+			const transcript = $('#transcript').value.trim();
+			if (!transcript) return showToast('Paste a transcript or choose the sample to get started');
+			const button = $('#generateButton');
+			button.disabled = true;
+			button.textContent = 'Analyzing transcript…';
+			try {
+				const response = await fetch('/api/analyze', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ transcript }) });
+				const result = await response.json();
+				if (!response.ok) throw new Error(result.error || 'Could not analyze transcript');
+				Object.assign(dashboardData, { transcript, summary: result.summary || '', decisions: result.decisions || [], clarifications: result.clarifications || [], tasks: (result.actionItems || []).map((name, index) => ({ id: `analysis:${Date.now()}:${index}`, name, owner: 'Unassigned', initials: 'U', color: '#7552ee', due: 'Not set', status: 'Pending', completed: false })) });
+				dashboardData.metrics = dashboardData.metrics.map((metric) => metric.label === 'Action Items' ? { ...metric, count: String(dashboardData.tasks.length) } : metric.label === 'Key Decisions' ? { ...metric, count: String(dashboardData.decisions.length) } : metric.label === 'Clarifications' ? { ...metric, count: String(dashboardData.clarifications.length) } : metric);
+				renderDashboard(dashboardData);
+				showToast('Meeting insights generated');
+			} catch (error) { showToast(`${error.message}. Start the backend server and check its API key.`); }
+			finally { button.disabled = false; button.innerHTML = '✦ &nbsp; Generate Meeting Insights'; }
+		});
+		$('#addTask').addEventListener('click', () => {
+			const name = prompt('What needs to get done?');
+			if (!name?.trim()) return;
+			const task = { id: `custom:${Date.now()}`, name: name.trim(), owner: dashboardData.user.split(' ')[0], initials: 'A', color: '#7552ee', due: 'Not set', status: 'Pending', completed: false };
+			const state = readTaskState();
+			state.custom = [...(state.custom || []), task];
+			saveTaskState(state);
+			dashboardData.tasks.push(task);
+			syncTaskSummary();
+			renderDashboard(dashboardData);
+			showToast('Action item added');
+		});
+		$('#tasks').addEventListener('change', (event) => {
+			const checkbox = event.target.closest('input[data-task-id]');
+			if (!checkbox) return;
+			const state = readTaskState();
+			const completed = new Set(state.completed || []);
+			if (checkbox.checked) completed.add(checkbox.dataset.taskId);
+			else completed.delete(checkbox.dataset.taskId);
+			state.completed = [...completed];
+			saveTaskState(state);
+			const task = dashboardData.tasks.find((item) => item.id === checkbox.dataset.taskId);
+			if (task) task.completed = checkbox.checked;
+			renderDashboard(dashboardData);
+			showToast(checkbox.checked ? 'Task marked complete' : 'Task reopened');
+		});
+		$('#editMeeting').addEventListener('click', async () => {
+			const title = prompt('Meeting title', dashboardData.meeting.title);
+			if (!title?.trim()) return;
+			if (dashboardData.meetingId) {
+				try {
+					const response = await fetch(`/api/meetings/${encodeURIComponent(dashboardData.meetingId)}`, { method: 'PATCH', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ title: title.trim() }) });
+					const result = await response.json(); if (!response.ok) throw new Error(result.error || 'Could not update meeting');
+				} catch (error) { showToast(error.message); return; }
+			}
+			dashboardData.meeting.title = title.trim(); renderDashboard(dashboardData); showToast('Meeting title updated');
+		});
+		document.querySelectorAll('.text-link').forEach((button) => button.addEventListener('click', () => {
+			const panel = button.closest('.panel');
+			if (panel?.classList.contains('recent')) { location.href = 'Meetings.html'; return; }
+			if (panel?.classList.contains('decisions')) { renderTab('Decisions', dashboardData); $('.summary-panel').scrollIntoView({ behavior: 'smooth', block: 'center' }); return; }
+			if (panel?.classList.contains('participants')) showToast(`${dashboardData.participants.length} participants in this meeting`);
+		}));
+		document.querySelectorAll('.transcript-tools button').forEach((button) => button.addEventListener('click', () => {
+			const area = $('#transcript'); const start = area.selectionStart; const end = area.selectionEnd; const selected = area.value.slice(start, end);
+			const title = button.title.toLowerCase();
+			if (title === 'undo') { area.focus(); document.execCommand('undo'); return; }
+			const wrappers = { bold: ['**', '**'], italic: ['*', '*'], underline: ['<u>', '</u>'], link: ['[', '](url)'], list: ['- ', ''] };
+			const wrapper = wrappers[title]; if (!wrapper) { showToast('Select text and use Bold, Italic, Underline, Link or List'); return; }
+			area.setRangeText(`${wrapper[0]}${selected || (title === 'link' ? 'link text' : 'text')}${wrapper[1]}`, start, end, 'select'); area.focus();
+		}));
+		$('#searchInput').addEventListener('input', (event) => {
+			const query = event.target.value.toLowerCase().trim();
+			document.querySelectorAll('.meeting-item, #tasks tr, .person, .decision').forEach((item) => { item.hidden = query !== '' && !item.textContent.toLowerCase().includes(query); });
+		});
+		document.addEventListener('keydown', (event) => { if ((event.ctrlKey || event.metaKey) && event.key.toLowerCase() === 'k') { event.preventDefault(); $('#searchInput').focus(); } });
+	</script>
+</body>
+</html>

@@ -1,0 +1,37 @@
+body{font-size:13px}
+.nav-link{font-size:12px}
+.brand small{font-size:9px}
+.sidebar-promo p{font-size:11px}
+.global-search input,.list-search input{font-size:11px}
+.global-search kbd{font-size:10px}
+.profile-name{font-size:11px}
+.profile-name small{font-size:10px}
+.page-heading p{font-size:12px}
+.steps li{font-size:10px}
+.section-heading h2{font-size:13px}
+.section-heading p{font-size:10px}
+.quiet-button{font-size:10px}
+.mode-tab{font-size:11px}
+.field-foot,.supported,.form-field,.form-field small{font-size:10px}
+.form-field input,.form-field select{font-size:11px}
+.workflow-step strong{font-size:10px}
+.workflow-step small{font-size:9px}
+.result-tab{font-size:10px}
+.result-card-head>strong{font-size:11px}
+.result-content{font-size:10px}
+.empty-result{font-size:10px}
+.topic-list li{font-size:9px}
+.results-footer{font-size:9px}
+.stats-row .stat-card small{font-size:10px}
+.filter-tab{font-size:9px}
+.row-copy strong{font-size:11px}
+.row-copy small{font-size:10px}
+.row-metrics{font-size:10px}
+.detail-date,.detail-label{font-size:10px}
+.people-chips span{font-size:10px}
+.detail-tab{font-size:9px}
+.detail-body{font-size:11px}
+.detail-actions .quiet-action{font-size:10px}
+.empty-detail p{font-size:11px}
+.text-link{font-size:10px}
+@media(max-width:480px){.reference-heading .steps li{font-size:8px}.meetings-heading p{font-size:9px}.stats-row .stat-card small{font-size:9px}}
